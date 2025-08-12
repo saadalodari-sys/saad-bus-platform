@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>اختيار المقاعد - سعد للنقل البري</title>
+  <link rel="stylesheet" href="assets/style.css">
+  <style>
+    .bus-layout {
+      display: grid;
+      grid-template-columns: repeat(4, 50px);
+      gap: 8px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    .seat {
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      user-select: none;
+    }
+    .available { background-color: green; }
+    .booked { background-color: red; cursor: not-allowed; }
+    .selected { background-color: orange; }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="brand">
+    <img src="assets/saad-bus-logo.svg" alt="سعد للنقل" class="logo">
+    <div class="titles">
+      <h1 class="ar">سعد للنقل البري</h1>
+      <h1 class="en" style="display:none">Saad Transport</h1>
+    </div>
+  </div>
+  <div class="lang-switch">
+    <button id="toEn">EN</button>
+    <button id="toAr" style="display:none">AR</button>
+  </div>
+</header>
+
+<main class="container">
+  <section class="trip-info card">
+    <h2 class="ar">اختيار المقاعد</h2>
+    <h2 class="en" style="display:none">Select Seats</h2>
+    <p id="tripDetails"></p>
+  </section>
+
+  <section class="bus-layout" id="seatLayout"></section>
+
+  <div style="margin-top:18px;text-align:center">
+    <button class="btn" id="continueBtn">
+      <span class="ar">متابعة</span>
+      <span class="en" style="display:none">Continue</span>
+    </button>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p class="ar">© 2025 سعد للنقل البري</p>
+  <p class="en" style="display:none">© 2025 Saad Transport</p>
+</footer>
+
+<script>
+  // لغة
+  const toEn = document.getElementById('toEn');
+  const toAr = document.getElementById('toAr');
+  function setLang(lang) {
+    document.documentElement.lang = (lang === 'en') ? 'en' : 'ar';
+    document.querySelectorAll('.ar').forEach(e => e.style.display = (lang === 'ar') ? '' : 'none');
+    document.querySelectorAll('.en').forEach(e => e.style.display = (lang === 'en') ? '' : 'none');
+    toEn.style.display = (lang === 'ar') ? '' : 'none';
+    toAr.style.display = (lang === 'en') ? '' : 'none';
+  }
+  toEn.addEventListener('click', () => setLang('en'));
+  toAr.addEventListener('click', () => setLang('ar'));
+  setLang('ar');
+
+  // بيانات الرحلات (نفس النتائج)
+  const trips = [
+    {id:'t1', origin:'الرياض', dest:'جدة', company:'أبو سرهد', depart:'2025-09-01 08:00', price:120, seats:20},
+    {id:'t2', origin:'الرياض', dest:'مكة', company:'البركة', depart:'2025-09-01 09:30', price:90, seats:15},
+    {id:'t3', origin:'الدمام', dest:'الرياض', company:'النور', depart:'2025-09-02 07:00', price:150, seats:10},
+    {id:'t4', origin:'تعز', dest:'عدن', company:'مراكب الجنوب', depart:'2025-09-03 06:00', price:200, seats:8},
+    {id:'t5', origin:'خميس مشيط', dest:'نجران', company:'النورس', depart:'2025-09-04 10:00', price:110, seats:12}
+  ];
+
+  // قراءة ID الرحلة من الرابط
+  const tripId = new URLSearchParams(location.search).get('trip');
+  const trip = trips.find(t => t.id === tripId);
+
+  if (!trip) {
+    document.getElementById('tripDetails').innerText = 'رحلة غير موجودة';
+  } else {
+    document.getElementById('tripDetails').innerHTML =
+      `<span class="ar">رحلة: ${trip.origin} → ${trip.dest} • الشركة: ${trip.company} • وقت: ${trip.depart}</span>
+       <span class="en" style="display:none">Trip: ${trip.origin} → ${trip.dest} • Company: ${trip.company} • Time: ${trip.depart}</span>`;
+  }
+
+  // إنشاء المقاعد
+  const seatLayout = document.getElementById('seatLayout');
+  const bookedSeats = [3, 7, 12]; // أرقام المقاعد المحجوزة
+  const selectedSeats = [];
+
+  for (let i = 1; i <= 20; i++) {
+    const seat = document.createElement('div');
+    seat.className = 'seat';
+    seat.innerText = i;
+    if (bookedSeats.includes(i)) {
+      seat.classList.add('booked');
+    } else {
+      seat.classList.add('available');
+      seat.addEventListener('click', () => {
+        if (seat.classList.contains('selected')) {
+          seat.classList.remove('selected');
+          seat.classList.add('available');
+          selectedSeats.splice(selectedSeats.indexOf(i), 1);
+        } else {
+          seat.classList.remove('available');
+          seat.classList.add('selected');
+          selectedSeats.push(i);
+        }
+      });
+    }
+    seatLayout.appendChild(seat);
+  }
+
+  // متابعة
+  document.getElementById('continueBtn').addEventListener('click', () => {
+    if (selectedSeats.length === 0) {
+      alert('اختر مقعدًا واحدًا على الأقل');
+      return;
+    }
+    // الانتقال لصفحة التذكرة مع البيانات
+    const seatsParam = encodeURIComponent(selectedSeats.join(','));
+    window.location.href = `ticket.html?trip=${tripId}&seats=${seatsParam}`;
+  });
+</script>
+
+</body>
+</html>

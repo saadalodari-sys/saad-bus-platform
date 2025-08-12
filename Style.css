@@ -1,0 +1,24 @@
+:root{--accent:#0b66d0;--bg:#f4f7fb;--card:#fff;--muted:#666}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial, Tahoma, sans-serif;background:var(--bg);color:#222;line-height:1.5}
+.site-header{display:flex;justify-content:space-between;align-items:center;padding:12px 18px;background:#fff;box-shadow:0 4px 15px rgba(12,35,70,0.04)}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{width:110px;height:auto}
+.titles h1{margin:0;font-size:18px}
+.tagline{margin:4px 0 0;color:var(--muted)}
+.lang-switch button{background:transparent;border:1px solid #e6eef9;padding:6px 8px;border-radius:6px;cursor:pointer;margin-left:6px}
+.container{max-width:1100px;margin:18px auto;padding:0 16px}
+.hero{background:linear-gradient(90deg,var(--accent),#0955b1);color:white;padding:18px;border-radius:10px}
+.search-box{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap}
+.search-box input{padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.18);min-width:150px}
+.search-box button{background:#ffd400;color:#112;padding:10px 14px;border-radius:8px;border:0;cursor:pointer;font-weight:700}
+.lists{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+.card{background:var(--card);padding:12px;border-radius:10px;box-shadow:0 6px 18px rgba(0,0,0,0.04)}
+.city-list, .company-list{list-style:none;padding:0;margin:8px 0 0}
+.city-list li, .company-list li{padding:6px 0;border-bottom:1px dashed #f0f4fb}
+.about, .contact{margin-top:16px}
+.site-footer{text-align:center;padding:14px;color:var(--muted);margin-top:18px}
+@media(max-width:800px){
+  .lists{grid-template-columns:1fr}
+  .search-box{flex-direction:column}
+}

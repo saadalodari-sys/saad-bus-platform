@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>سعد للنقل البري — Saad Transport</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="brand">
+    <img src="assets/saad-bus-logo.svg" alt="سعد للنقل البري" class="logo">
+    <div class="titles">
+      <h1 class="ar">سعد للنقل البري</h1>
+      <h1 class="en" style="display:none">Saad Transport</h1>
+      <p class="tagline ar">حجز تذاكر النقل البري بسهولة</p>
+      <p class="tagline en" style="display:none">Book intercity transport easily</p>
+    </div>
+  </div>
+
+  <div class="lang-switch">
+    <button id="toEn">EN</button>
+    <button id="toAr" style="display:none">AR</button>
+  </div>
+</header>
+
+<main class="container">
+  <section class="hero">
+    <h2 class="ar">ابحث عن رحلتك</h2>
+    <h2 class="en" style="display:none">Search your trip</h2>
+
+    <div class="search-box">
+      <input id="from" placeholder="من (مثال: الرياض)" />
+      <input id="to" placeholder="إلى (مثال: جدة)" />
+      <input id="date" type="date" />
+      <button onclick="alertLang('هذا نموذج عرض فقط — Demo only')">بحث</button>
+    </div>
+  </section>
+
+  <section class="lists">
+    <div class="card">
+      <h3 class="ar">المدن المتاحة</h3>
+      <h3 class="en" style="display:none">Available Cities</h3>
+      <ul class="city-list">
+        <li>الرياض — Riyadh</li>
+        <li>جدة — Jeddah</li>
+        <li>الدمام — Dammam</li>
+        <li>المدينة — Madinah</li>
+        <li>أبها — Abha</li>
+        <li>جازان — Jazan</li>
+        <li>نجران — Najran</li>
+        <li>خميس مشيط — Khamis Mushait</li>
+        <li>تعز — Taiz</li>
+        <li>المكلا — Al Mukalla</li>
+        <li>عدن — Aden</li>
+        <li>سيئون — Seiyun</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3 class="ar">شركات النقل</h3>
+      <h3 class="en" style="display:none">Transport Companies</h3>
+      <ul class="company-list">
+        <li>أبو سرهد — Abu Sarhad</li>
+        <li>البركة — Al Baraka</li>
+        <li>النور — Al Noor</li>
+        <li>مراكب الجنوب — Marakeb Al-Janoub</li>
+        <li>مكيّون — Makyon</li>
+        <li>النورس — Al-Nawras</li>
+        <li>بوابة سفر — Bawabat Safar</li>
+        <li>أركان المشاعر — Arkan Al-Mashaer</li>
+        <li>مشوار — Mishwar</li>
+        <li>سما حراء — Sama Hara'</li>
+        <li>شركات وكاتب نقل السيارات — Car Transport Co.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="about">
+    <h3 class="ar">من نحن</h3>
+    <h3 class="en" style="display:none">About Us</h3>
+    <p class="ar">سعد للنقل البري منصة عرضية لحجز تذاكر النقل البري بين المدن. هذه نسخة عرضية للتجربة.</p>
+    <p class="en" style="display:none">Saad Transport is a demo platform for intercity ticket booking.</p>
+  </section>
+
+  <section class="contact">
+    <h3 class="ar">تواصل معنا</h3>
+    <h3 class="en" style="display:none">Contact</h3>
+    <p class="ar">هاتف: <strong>774676939</strong> — ايميل: <strong>saadnoor6498@yahoo.com</strong></p>
+    <p class="en" style="display:none">Phone: <strong>774676939</strong> — Email: <strong>saadnoor6498@yahoo.com</strong></p>
+    <p class="ar">العنوان: صنعاء، شارع الستين الجنوبي</p>
+    <p class="en" style="display:none">Address: Sana'a, South Sixty Street</p>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <p class="ar">© 2025 سعد للنقل البري</p>
+  <p class="en" style="display:none">© 2025 Saad Transport</p>
+</footer>
+
+<script>
+  const toEn = document.getElementById('toEn');
+  const toAr = document.getElementById('toAr');
+
+  function setLang(lang) {
+    document.documentElement.lang = (lang === 'en') ? 'en' : 'ar';
+    // toggle simple classes
+    document.querySelectorAll('.ar').forEach(e => e.style.display = (lang === 'ar') ? '' : 'none');
+    document.querySelectorAll('.en').forEach(e => e.style.display = (lang === 'en') ? '' : 'none');
+    toEn.style.display = (lang === 'ar') ? '' : 'none';
+    toAr.style.display = (lang === 'en') ? '' : 'none';
+  }
+
+  toEn.addEventListener('click', () => setLang('en'));
+  toAr.addEventListener('click', () => setLang('ar'));
+
+  // default: Arabic
+  setLang('ar');
+
+  function alertLang(text) {
+    alert(text);
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>تأكيد الحجز - سعد للنقل البري</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="brand">
+    <img src="assets/saad-bus-logo.svg" alt="سعد للنقل" class="logo">
+    <div class="titles">
+      <h1 class="ar">سعد للنقل البري</h1>
+      <h1 class="en" style="display:none">Saad Transport</h1>
+    </div>
+  </div>
+  <div class="lang-switch">
+    <button id="toEn">EN</button>
+    <button id="toAr" style="display:none">AR</button>
+  </div>
+</header>
+
+<main class="container">
+  <section class="ticket-info card">
+    <h2 class="ar">ملخص الحجز</h2>
+    <h2 class="en" style="display:none">Booking Summary</h2>
+
+    <div id="bookingDetails"></div>
+  </section>
+
+  <div style="margin-top:18px;text-align:center">
+    <button class="btn" id="confirmBtn">
+      <span class="ar">تأكيد الحجز</span>
+      <span class="en" style="display:none">Confirm Booking</span>
+    </button>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <p class="ar">© 2025 سعد للنقل البري</p>
+  <p class="en" style="display:none">© 2025 Saad Transport</p>
+</footer>
+
+<script>
+  // لغة
+  const toEn = document.getElementById('toEn');
+  const toAr = document.getElementById('toAr');
+  function setLang(lang) {
+    document.documentElement.lang = (lang === 'en') ? 'en' : 'ar';
+    document.querySelectorAll('.ar').forEach(e => e.style.display = (lang === 'ar') ? '' : 'none');
+    document.querySelectorAll('.en').forEach(e => e.style.display = (lang === 'en') ? '' : 'none');
+    toEn.style.display = (lang === 'ar') ? '' : 'none';
+    toAr.style.display = (lang === 'en') ? '' : 'none';
+  }
+  toEn.addEventListener('click', () => setLang('en'));
+  toAr.addEventListener('click', () => setLang('ar'));
+  setLang('ar');
+
+  // بيانات الرحلات
+  const trips = [
+    {id:'t1', origin:'الرياض', dest:'جدة', company:'أبو سرهد', depart:'2025-09-01 08:00', price:120},
+    {id:'t2', origin:'الرياض', dest:'مكة', company:'البركة', depart:'2025-09-01 09:30', price:90},
+    {id:'t3', origin:'الدمام', dest:'الرياض', company:'النور', depart:'2025-09-02 07:00', price:150},
+    {id:'t4', origin:'تعز', dest:'عدن', company:'مراكب الجنوب', depart:'2025-09-03 06:00', price:200},
+    {id:'t5', origin:'خميس مشيط', dest:'نجران', company:'النورس', depart:'2025-09-04 10:00', price:110}
+  ];
+
+  // قراءة البيانات من الرابط
+  const params = new URLSearchPar
